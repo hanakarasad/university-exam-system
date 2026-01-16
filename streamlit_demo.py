@@ -283,38 +283,35 @@ with tab4:
     col_chart1, col_chart2 = st.columns(2)
     
     with col_chart1:
-        # Heatmap de l'occupation
+        # Heatmap simplifié (بدون matplotlib)
         st.subheader("🗓️ Calendrier d'Occupation")
         
-        # Créer un calendrier fictif
-        dates = pd.date_range(start="2024-06-10", end="2024-06-17", freq='D')
+        # جدول بسيط بدلاً من heatmap
+        dates = ["2024-06-10", "2024-06-11", "2024-06-12", "2024-06-13"]
         rooms = ["Amphi A", "Amphi B", "Salle 101", "Salle 102", "Labo Info 1"]
         
-        # Données simulées
+        # إنشاء جدول بيانات بسيط
         import random
-        heatmap_data = []
-        for date in dates:
-            for room in rooms:
-                heatmap_data.append({
-                    "Date": date.date(),
-                    "Salle": room,
-                    "Examens": random.randint(0, 3)
-                })
+        schedule_data = []
+        for room in rooms:
+            row = {"Salle": room}
+            for date in dates:
+                row[date] = random.randint(0, 3)
+            schedule_data.append(row)
         
-        heatmap_df = pd.DataFrame(heatmap_data)
-        pivot_df = heatmap_df.pivot(index="Salle", columns="Date", values="Examens")
-        
-        # Afficher le heatmap
-        st.dataframe(pivot_df.style.background_gradient(cmap='YlOrRd'), use_container_width=True)
+        schedule_df = pd.DataFrame(schedule_data)
+        st.dataframe(schedule_df.set_index("Salle"), use_container_width=True)
     
     with col_chart2:
-        # Distribution des durées
+        # Distribution des durées (بدون matplotlib)
         st.subheader("⏱️ Distribution des Durées")
         
-        durations = [90, 120, 150, 180]
-        counts = [15, 45, 25, 5]  # Pourcentages fictifs
+        durations_data = pd.DataFrame({
+            "Durée (min)": [90, 120, 150, 180],
+            "Nombre d'examens": [15, 45, 25, 5]
+        })
         
-        fig = px.pie(values=counts, names=durations, 
+        fig = px.bar(durations_data, x="Durée (min)", y="Nombre d'examens",
                     title="Répartition des Durées d'Examen")
         st.plotly_chart(fig, use_container_width=True)
 
@@ -389,6 +386,4 @@ with st.expander("📖 À propos de la Version Complète", expanded=False):
     
     **🔗 Lien GitHub:** `https://github.com/VOTRE_NOM/university-exam-system`
     """)
-
-# Message final
 st.success("✅ Application de démonstration chargée avec succès!")
