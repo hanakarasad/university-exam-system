@@ -105,17 +105,32 @@ def login_page():
     """Page de connexion professionnelle"""
     st.set_page_config(page_title="Connexion", page_icon="🔐", layout="wide")
     
-    # CSS professionnel
+    # CSS professionnel SANS ESPACE BLANC
     st.markdown("""
     <style>
+    /* Supprimer TOUS les espaces blancs */
     .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        min-height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Cacher le header Streamlit */
+    header {
+        visibility: hidden !important;
+        height: 0 !important;
+    }
+    
+    /* Supprimer les marges par défaut */
+    .main .block-container {
+        padding-top: 0rem !important;
+        padding-bottom: 0rem !important;
     }
     
     .login-card {
         max-width: 480px;
-        margin: 100px auto;
+        margin: 100px auto 30px auto;
         padding: 50px 40px;
         background: rgba(255, 255, 255, 0.98);
         border-radius: 24px;
@@ -179,7 +194,8 @@ def login_page():
     .university-info {
         text-align: center;
         color: white;
-        margin-bottom: 40px;
+        padding: 40px 0 20px 0;
+        margin: 0;
     }
     
     .university-name {
@@ -195,11 +211,11 @@ def login_page():
     </style>
     """, unsafe_allow_html=True)
     
-    # En-tête universitaire
+    # En-tête universitaire avec le NOUVEAU nom de plateforme
     st.markdown("""
     <div class="university-info">
         <div class="university-name">🎓 Université Excellence</div>
-        <div class="university-slogan">Système Intelligent de Gestion des Examens</div>
+        <div class="university-slogan">Système Intelligent de Planification des Examens Universitaires</div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -278,11 +294,11 @@ def login_page():
     
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # Footer
-    st.markdown("""
+    # Footer avec l'année 2026 et version 1.0
+    st.markdown(f"""
     <div style="text-align:center; margin-top:50px; color:white; opacity:0.8;">
-    <p>© 2024 Université Excellence - Tous droits réservés</p>
-    <p style="font-size:14px;">Version 3.0 | Système de Gestion des Examens</p>
+    <p>© 2026 Université Excellence - Tous droits réservés</p>
+    <p style="font-size:14px;">Version 1.0 | Système Intelligent de Planification des Examens Universitaires</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -294,7 +310,7 @@ def main_app():
     """Application principale après authentification"""
     
     st.set_page_config(
-        page_title="Système de Gestion des Examens",
+        page_title="Système Intelligent de Planification des Examens Universitaires",
         page_icon="🎓",
         layout="wide"
     )
@@ -357,7 +373,7 @@ def main_app():
     col1, col2, col3 = st.columns([3, 1, 1])
     
     with col1:
-        st.title(f"🎓 Système de Gestion des Examens")
+        st.title(f"🎓 Système Intelligent de Planification des Examens Universitaires")
         st.markdown(f"""
         <div class="user-info-card">
         <h3>👤 {user_info['prenom']} {user_info['nom']}</h3>
@@ -823,7 +839,7 @@ def main_app():
                 **Matricule:** {user_info['matricule']}
                 **Formation:** {user_info.get('formation', 'Licence Informatique')}
                 **Département:** {user_info.get('departement', 'Informatique')}
-                **Année:** 2023-2024
+                **Année:** 2025-2026
                 **Niveau:** L3
                 """)
             
@@ -865,20 +881,20 @@ def main_app():
     st.divider()
     
     if role == 'admin':
-        st.caption("""
-        ⚠️ **Système de Gestion des Examens - Version Admin 3.0**  
+        st.caption(f"""
+        ⚠️ **Système Intelligent de Planification des Examens Universitaires - Version Admin 1.0**  
         📊 Gestion complète de 130,000 étudiants | 🏛️ 65 salles | 👨‍🏫 120 professeurs  
         🔧 Développé avec: Python • Streamlit • PostgreSQL | 🕐 Dernière mise à jour: Aujourd'hui
         """)
     elif role == 'professeur':
-        st.caption("""
-        👨‍🏫 **Interface Professeur - Système de Gestion des Examens**  
+        st.caption(f"""
+        👨‍🏫 **Interface Professeur - Système Intelligent de Planification des Examens Universitaires**  
         📅 Planification d'examens | 👥 Gestion d'étudiants | 📊 Suivi des résultats
-        🎯 Université Excellence | Année académique 2023-2024
+        🎯 Université Excellence | Année académique 2025-2026
         """)
     elif role == 'etudiant':
-        st.caption("""
-        👨‍🎓 **Interface Étudiant - Système de Gestion des Examens**  
+        st.caption(f"""
+        👨‍🎓 **Interface Étudiant - Système Intelligent de Planification des Examens Universitaires**  
         📅 Consultation du calendrier | 📊 Visualisation des notes | ℹ️ Profil personnel
         🎓 Université Excellence | Formation: Licence Informatique | Niveau: L3
         """)
