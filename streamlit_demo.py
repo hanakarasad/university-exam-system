@@ -3,9 +3,10 @@ import pandas as pd
 import plotly.express as px
 import datetime
 import numpy as np
+import hashlib 
 
 # ============================================
-# 2. DONNÉES DE DÉMONSTRATION
+# 1. DONNÉES DE DÉMONSTRATION
 # ============================================
 
 def get_demo_exams():
@@ -49,7 +50,7 @@ def get_demo_professors():
     return pd.DataFrame(professors)
 
 # ============================================
-# 3. SYSTÈME D'AUTHENTIFICATION
+# 2. SYSTÈME D'AUTHENTIFICATION
 # ============================================
 
 def init_session():
@@ -97,7 +98,7 @@ def authenticate(matricule, password):
     return None
 
 # ============================================
-# 4. PAGE DE CONNEXION
+# 3. PAGE DE CONNEXION
 # ============================================
 
 def login_page():
@@ -149,9 +150,7 @@ def login_page():
         matricule = st.text_input("🎓 Numéro Matricule", placeholder="Ex: ADM001, PROF001, ETUD001")
         password = st.text_input("🔑 Mot de passe", type="password", placeholder="Votre mot de passe")
         
-        col_btn1, col_btn2 = st.columns([1, 1])
-        with col_btn1:
-            submit = st.form_submit_button("🚀 Se Connecter", use_container_width=True)
+        submit = st.form_submit_button("🚀 Se Connecter", use_container_width=True)
     
     # Validation
     if submit:
@@ -197,7 +196,7 @@ def login_page():
     """, unsafe_allow_html=True)
 
 # ============================================
-# 5. APPLICATION PRINCIPALE
+# 4. APPLICATION PRINCIPALE
 # ============================================
 
 def main_app():
@@ -500,7 +499,7 @@ def main_app():
         """)
 
 # ============================================
-# 6. POINT D'ENTRÉE PRINCIPAL
+# 5. POINT D'ENTRÉE PRINCIPAL
 # ============================================
 
 def main():
