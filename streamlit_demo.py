@@ -259,7 +259,7 @@ def main_app():
         """, unsafe_allow_html=True)
     
     with col3:
-        if st.button("🚪 Déconnexion", type="secondary", use_container_width=True):
+        if st.button(" Déconnexion", type="secondary", use_container_width=True):
             st.session_state.authenticated = False
             st.session_state.user_info = {}
             st.rerun()
@@ -284,11 +284,11 @@ def main_app():
             
             st.divider()
             
-            if st.button("🚀 Générer Emploi du Temps", type="primary", use_container_width=True):
-                st.success("✅ Emploi du temps généré! (Simulation)")
+            if st.button(" Générer Emploi du Temps", type="primary", use_container_width=True):
+                st.success(" Emploi du temps généré! (Simulation)")
             
             if st.button("🔍 Vérifier Conflits", use_container_width=True):
-                st.info("✅ Aucun conflit détecté! (Simulation)")
+                st.info(" Aucun conflit détecté! (Simulation)")
         
         elif role == 'professeur':
             st.markdown('<div class="stat-card">', unsafe_allow_html=True)
@@ -300,7 +300,7 @@ def main_app():
             st.divider()
             
             if st.button("📋 Mes Examens", use_container_width=True):
-                st.success("✅ Affichage de vos examens")
+                st.success(" Affichage de vos examens")
             
             if st.button("📊 Mes Statistiques", use_container_width=True):
                 st.info("📈 Statistiques chargées")
