@@ -98,46 +98,86 @@ def authenticate(matricule, password):
     return None
 
 # ============================================
-# 3. PAGE DE CONNEXION PROFESSIONNELLE
+# 3. PAGE DE CONNEXION SANS ESPACE BLANC
 # ============================================
 
 def login_page():
-    """Page de connexion professionnelle"""
+    """Page de connexion sans espace blanc"""
     st.set_page_config(page_title="Connexion", page_icon="🔐", layout="wide")
     
-    # CSS professionnel
+    # CSS SANS ESPACE BLANC
     st.markdown("""
     <style>
+    /* Supprimer TOUS les espaces blancs */
     .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        min-height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
     }
     
+    /* Cacher le header Streamlit */
+    header {
+        visibility: hidden !important;
+        height: 0 !important;
+    }
+    
+    /* Supprimer les marges par défaut */
+    .main .block-container {
+        padding-top: 0rem !important;
+        padding-bottom: 0rem !important;
+    }
+    
+    /* En-tête universitaire compact */
+    .university-header {
+        text-align: center;
+        color: white;
+        padding: 20px 0 30px 0;
+        margin: 0;
+    }
+    
+    .university-name {
+        font-size: 32px;
+        font-weight: 700;
+        margin: 0;
+        padding: 0;
+    }
+    
+    .university-slogan {
+        font-size: 16px;
+        opacity: 0.9;
+        margin: 5px 0 0 0;
+        padding: 0;
+    }
+    
+    /* Carte de connexion compacte */
     .login-card {
-        max-width: 480px;
-        margin: 100px auto;
-        padding: 50px 40px;
+        max-width: 450px;
+        margin: 0 auto 30px auto;
+        padding: 35px 30px;
         background: rgba(255, 255, 255, 0.98);
-        border-radius: 24px;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
-        backdrop-filter: blur(20px);
+        border-radius: 20px;
+        box-shadow: 0 15px 40px rgba(0, 0, 0, 0.25);
+        backdrop-filter: blur(15px);
         border: 1px solid rgba(255, 255, 255, 0.4);
     }
     
+    /* Titre */
     .login-title {
         text-align: center;
         color: #2c3e50;
-        margin-bottom: 40px;
-        font-size: 32px;
+        margin: 0 0 25px 0;
+        font-size: 26px;
         font-weight: 700;
     }
     
+    /* Champs de formulaire */
     .stTextInput > div > div > input {
-        border-radius: 12px;
+        border-radius: 10px;
         border: 2px solid #e0e0e0;
-        padding: 14px 20px;
-        font-size: 16px;
-        transition: all 0.3s;
+        padding: 12px 16px;
+        font-size: 15px;
+        margin: 5px 0;
     }
     
     .stTextInput > div > div > input:focus {
@@ -145,61 +185,49 @@ def login_page():
         box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
     }
     
+    /* Bouton */
     .stButton > button {
         width: 100%;
-        border-radius: 12px;
-        height: 52px;
+        border-radius: 10px;
+        height: 46px;
         font-weight: 600;
-        font-size: 16px;
+        font-size: 15px;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         border: none;
-        margin-top: 20px;
-        transition: all 0.3s;
+        margin: 15px 0 0 0;
     }
     
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 15px rgba(102, 126, 234, 0.25);
     }
     
+    /* Cartes de comptes */
     .account-card {
         background: #f8f9fa;
-        border-radius: 12px;
-        padding: 20px;
-        margin: 15px 0;
+        border-radius: 10px;
+        padding: 15px;
+        margin: 10px 0;
         border-left: 4px solid #667eea;
-        transition: all 0.3s;
     }
     
-    .account-card:hover {
-        transform: translateX(5px);
-        background: #eef2ff;
-    }
-    
-    .university-info {
+    /* Footer */
+    .login-footer {
         text-align: center;
         color: white;
-        margin-bottom: 40px;
-    }
-    
-    .university-name {
-        font-size: 36px;
-        font-weight: 700;
-        margin-bottom: 10px;
-    }
-    
-    .university-slogan {
-        font-size: 18px;
-        opacity: 0.9;
+        opacity: 0.8;
+        padding: 20px 0;
+        margin: 0;
+        font-size: 14px;
     }
     </style>
     """, unsafe_allow_html=True)
     
-    # En-tête universitaire
+    # En-tête universitaire avec le nouveau nom de plateforme
     st.markdown("""
-    <div class="university-info">
+    <div class="university-header">
         <div class="university-name">🎓 Université Excellence</div>
-        <div class="university-slogan">Système Intelligent de Gestion des Examens</div>
+        <div class="university-slogan">Système Intelligent de Planification des Examens Universitaires</div>
     </div>
     """, unsafe_allow_html=True)
     
@@ -209,7 +237,7 @@ def login_page():
     # Logo
     col1, col2, col3 = st.columns([1, 2, 1])
     with col2:
-        st.image("https://cdn-icons-png.flaticon.com/512/2232/2232688.png", width=100)
+        st.image("https://cdn-icons-png.flaticon.com/512/2232/2232688.png", width=80)
     
     # Titre
     st.markdown('<h1 class="login-title">🔐 Portail d\'Authentification</h1>', unsafe_allow_html=True)
@@ -217,19 +245,15 @@ def login_page():
     # Formulaire de connexion
     with st.form("login_form", clear_on_submit=True):
         matricule = st.text_input("**🎓 Numéro Matricule**", 
-                                placeholder="Votre numéro d'identification",
-                                help="Exemple: ADM001, PROF001, ETUD001")
+                                placeholder="Ex: ADM001, PROF001, ETUD001")
         
         password = st.text_input("**🔑 Mot de Passe**", 
                                type="password",
-                               placeholder="Votre mot de passe confidentiel",
-                               help="Votre mot de passe personnel")
+                               placeholder="Votre mot de passe")
         
-        col_btn1, col_btn2, col_btn3 = st.columns([1, 2, 1])
-        with col_btn2:
-            submit = st.form_submit_button("**🚀 Accéder au Système**", 
-                                         use_container_width=True,
-                                         type="primary")
+        submit = st.form_submit_button("**🚀 Accéder au Système**", 
+                                     use_container_width=True,
+                                     type="primary")
     
     # Validation
     if submit:
@@ -241,48 +265,42 @@ def login_page():
                     "matricule": matricule,
                     **user
                 }
-                st.success(f"### ✅ Bienvenue {user['prenom']} {user['nom']}!")
-                st.balloons()
+                st.success(f"✅ Bienvenue {user['prenom']} {user['nom']}!")
                 st.rerun()
             else:
-                st.error("### ❌ Identifiants incorrects")
-                st.warning("Veuillez vérifier votre matricule et mot de passe")
+                st.error("❌ Identifiants incorrects")
         else:
-            st.warning("### ⚠️ Champs requis")
-            st.info("Tous les champs doivent être remplis")
+            st.warning("⚠️ Veuillez remplir tous les champs")
     
     # Comptes de démonstration
-    with st.expander("### 📋 Comptes de Démonstration", expanded=True):
+    with st.expander("### 📋 Comptes de Démonstration", expanded=False):
         st.markdown("""
         <div class="account-card">
         <h4>👨‍💼 Administrateur</h4>
         <p><strong>Matricule:</strong> ADM001</p>
         <p><strong>Mot de passe:</strong> admin123</p>
-        <p><em>Accès complet au système</em></p>
         </div>
         
         <div class="account-card">
         <h4>👨‍🏫 Professeur</h4>
         <p><strong>Matricule:</strong> PROF001</p>
         <p><strong>Mot de passe:</strong> prof123</p>
-        <p><em>Gestion des examens et étudiants</em></p>
         </div>
         
         <div class="account-card">
         <h4>👨‍🎓 Étudiant</h4>
         <p><strong>Matricule:</strong> ETUD001</p>
         <p><strong>Mot de passe:</strong> etud123</p>
-        <p><em>Consultation des examens et résultats</em></p>
         </div>
         """, unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # Footer
-    st.markdown("""
-    <div style="text-align:center; margin-top:50px; color:white; opacity:0.8;">
-    <p>© 2024 Université Excellence - Tous droits réservés</p>
-    <p style="font-size:14px;">Version 3.0 | Système de Gestion des Examens</p>
+    # Footer avec l'année 2026 et version 1
+    st.markdown(f"""
+    <div class="login-footer">
+    <p>© 2026 Université Excellence - Tous droits réservés</p>
+    <p>Version 1.0 | Système Intelligent de Planification des Examens Universitaires</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -294,7 +312,7 @@ def main_app():
     """Application principale après authentification"""
     
     st.set_page_config(
-        page_title="Système de Gestion des Examens",
+        page_title="Système Intelligent de Planification des Examens Universitaires",
         page_icon="🎓",
         layout="wide"
     )
@@ -357,7 +375,7 @@ def main_app():
     col1, col2, col3 = st.columns([3, 1, 1])
     
     with col1:
-        st.title(f"🎓 Système de Gestion des Examens")
+        st.title(f"🎓 Système Intelligent de Planification des Examens Universitaires")
         st.markdown(f"""
         <div class="user-info-card">
         <h3>👤 {user_info['prenom']} {user_info['nom']}</h3>
@@ -823,7 +841,7 @@ def main_app():
                 **Matricule:** {user_info['matricule']}
                 **Formation:** {user_info.get('formation', 'Licence Informatique')}
                 **Département:** {user_info.get('departement', 'Informatique')}
-                **Année:** 2023-2024
+                **Année:** 2025-2026
                 **Niveau:** L3
                 """)
             
@@ -865,22 +883,25 @@ def main_app():
     st.divider()
     
     if role == 'admin':
-        st.caption("""
-        ⚠️ **Système de Gestion des Examens - Version Admin 3.0**  
+        st.caption(f"""
+        ⚠️ **Système Intelligent de Planification des Examens Universitaires - Version Admin 1.0**  
         📊 Gestion complète de 130,000 étudiants | 🏛️ 65 salles | 👨‍🏫 120 professeurs  
-        🔧 Développé avec: Python • Streamlit • PostgreSQL | 🕐 Dernière mise à jour: Aujourd'hui
+        🔧 Développé avec: Python • Streamlit • PostgreSQL | 🕐 Dernière mise à jour: Aujourd'hui  
+        © 2026 Université Excellence - Tous droits réservés
         """)
     elif role == 'professeur':
-        st.caption("""
-        👨‍🏫 **Interface Professeur - Système de Gestion des Examens**  
-        📅 Planification d'examens | 👥 Gestion d'étudiants | 📊 Suivi des résultats
-        🎯 Université Excellence | Année académique 2023-2024
+        st.caption(f"""
+        👨‍🏫 **Interface Professeur - Système Intelligent de Planification des Examens Universitaires**  
+        📅 Planification d'examens | 👥 Gestion d'étudiants | 📊 Suivi des résultats  
+        🎯 Université Excellence | Année académique 2025-2026  
+        © 2026 Université Excellence - Tous droits réservés
         """)
     elif role == 'etudiant':
-        st.caption("""
-        👨‍🎓 **Interface Étudiant - Système de Gestion des Examens**  
-        📅 Consultation du calendrier | 📊 Visualisation des notes | ℹ️ Profil personnel
-        🎓 Université Excellence | Formation: Licence Informatique | Niveau: L3
+        st.caption(f"""
+        👨‍🎓 **Interface Étudiant - Système Intelligent de Planification des Examens Universitaires**  
+        📅 Consultation du calendrier | 📊 Visualisation des notes | ℹ️ Profil personnel  
+        🎓 Université Excellence | Formation: Licence Informatique | Niveau: L3  
+        © 2026 Université Excellence - Tous droits réservés | Version 1.0
         """)
 
 # ============================================
