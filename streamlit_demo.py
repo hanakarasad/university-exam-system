@@ -105,12 +105,27 @@ def login_page():
     """Page de connexion professionnelle"""
     st.set_page_config(page_title="Connexion", page_icon="🔐", layout="wide")
     
-    # CSS professionnel
+    # CSS professionnel SANS ESPACE BLANC
     st.markdown("""
     <style>
+    /* Supprimer les espaces blancs */
     .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        min-height: 100vh;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%) !important;
+        min-height: 100vh !important;
+        margin: 0 !important;
+        padding: 0 !important;
+    }
+    
+    /* Cacher le header Streamlit */
+    header {
+        visibility: hidden !important;
+        height: 0 !important;
+    }
+    
+    /* Supprimer les marges par défaut */
+    .main .block-container {
+        padding-top: 0rem !important;
+        padding-bottom: 0rem !important;
     }
     
     .login-card {
@@ -179,7 +194,8 @@ def login_page():
     .university-info {
         text-align: center;
         color: white;
-        margin-bottom: 40px;
+        padding: 40px 0 20px 0;
+        margin: 0;
     }
     
     .university-name {
@@ -278,11 +294,11 @@ def login_page():
     
     st.markdown('</div>', unsafe_allow_html=True)
     
-    # Footer
-    st.markdown("""
+    # Footer avec l'année 2026 et version 1
+    st.markdown(f"""
     <div style="text-align:center; margin-top:50px; color:white; opacity:0.8;">
-    <p>© 2024 Université Excellence - Tous droits réservés</p>
-    <p style="font-size:14px;">Version 3.0 | Système de Gestion des Examens</p>
+    <p>© 2026 Université Excellence - Tous droits réservés</p>
+    <p style="font-size:14px;">Version 1.0 | Système de Gestion des Examens</p>
     </div>
     """, unsafe_allow_html=True)
 
@@ -823,7 +839,7 @@ def main_app():
                 **Matricule:** {user_info['matricule']}
                 **Formation:** {user_info.get('formation', 'Licence Informatique')}
                 **Département:** {user_info.get('departement', 'Informatique')}
-                **Année:** 2023-2024
+                **Année:** 2025-2026
                 **Niveau:** L3
                 """)
             
@@ -866,7 +882,7 @@ def main_app():
     
     if role == 'admin':
         st.caption("""
-        ⚠️ **Système de Gestion des Examens - Version Admin 3.0**  
+        ⚠️ **Système de Gestion des Examens - Version Admin 1.0**  
         📊 Gestion complète de 130,000 étudiants | 🏛️ 65 salles | 👨‍🏫 120 professeurs  
         🔧 Développé avec: Python • Streamlit • PostgreSQL | 🕐 Dernière mise à jour: Aujourd'hui
         """)
@@ -874,7 +890,7 @@ def main_app():
         st.caption("""
         👨‍🏫 **Interface Professeur - Système de Gestion des Examens**  
         📅 Planification d'examens | 👥 Gestion d'étudiants | 📊 Suivi des résultats
-        🎯 Université Excellence | Année académique 2023-2024
+        🎯 Université Excellence | Année académique 2025-2026
         """)
     elif role == 'etudiant':
         st.caption("""
