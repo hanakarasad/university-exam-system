@@ -64,15 +64,8 @@ def hash_password(password):
     """Hasher le mot de passe"""
     return hashlib.sha256(password.encode()).hexdigest()
 
-# Comptes d'accès aux plateformes (ajoutés depuis le tableau)
-PLATFORM_ACCOUNTS = [
-    {"Spécialité": "GL", "Groupe": 5, "Doyen ou vice doyen": "vicem_doyen@un", "gestionnaire des examens": "planification_fs@un", "Chef de département": "chef_info@univ-1234", "Enseignant": "bouhadjar_kamel1234", "Etudiant": "222231005106"},
-    {"Spécialité": "GL", "Groupe": 3, "Doyen ou vice doyen": "døyen", "gestionnaire des examens": "admin123", "Chef de département": "chef_dept_1", "Enseignant": "prof1", "Etudiant": "etudiant1"},
-]
-
 # Utilisateurs prédéfinis avec rôles
 USERS = {
-    # Administrateurs
     "ADM001": {
         "password": hash_password("admin123"),
         "role": "admin",
@@ -80,81 +73,6 @@ USERS = {
         "prenom": "Système",
         "departement": "Administration"
     },
-    "planification_fs@un": {
-        "password": hash_password("admin123"),
-        "role": "admin",
-        "nom": "Gestionnaire",
-        "prenom": "Examens",
-        "departement": "Planification"
-    },
-    
-    # Doyens/Vice-Doyens
-    "vicem_doyen@un": {
-        "password": hash_password("vicem_doyen"),
-        "role": "admin",
-        "nom": "Vice-Doyen",
-        "prenom": "Faculté",
-        "departement": "Direction"
-    },
-    "døyen": {
-        "password": hash_password("døyen123"),
-        "role": "admin",
-        "nom": "Doyen",
-        "prenom": "Faculté",
-        "departement": "Direction"
-    },
-    
-    # Chefs de département
-    "chef_info@univ-1234": {
-        "password": hash_password("chef123"),
-        "role": "professeur",
-        "nom": "Chef",
-        "prenom": "Département",
-        "departement": "Informatique"
-    },
-    "chef_dept_1": {
-        "password": hash_password("chef123"),
-        "role": "professeur",
-        "nom": "Chef",
-        "prenom": "Département",
-        "departement": "Génie Logiciel"
-    },
-    
-    # Enseignants
-    "bouhadjar_kamel1234": {
-        "password": hash_password("prof123"),
-        "role": "professeur",
-        "nom": "Bouhadjar",
-        "prenom": "Kamel",
-        "departement": "Informatique"
-    },
-    "prof1": {
-        "password": hash_password("prof123"),
-        "role": "professeur",
-        "nom": "Professeur",
-        "prenom": "Principal",
-        "departement": "Génie Logiciel"
-    },
-    
-    # Étudiants
-    "222231005106": {
-        "password": hash_password("etud123"),
-        "role": "etudiant",
-        "nom": "Étudiant",
-        "prenom": "GL5",
-        "departement": "Informatique",
-        "formation": "Licence Génie Logiciel"
-    },
-    "etudiant1": {
-        "password": hash_password("etud123"),
-        "role": "etudiant",
-        "nom": "Étudiant",
-        "prenom": "GL3",
-        "departement": "Génie Logiciel",
-        "formation": "Licence Génie Logiciel"
-    },
-    
-    # Utilisateurs de démonstration supplémentaires
     "PROF001": {
         "password": hash_password("prof123"),
         "role": "professeur",
@@ -290,14 +208,6 @@ def login_page():
         font-size: 18px;
         opacity: 0.9;
     }
-    
-    .platform-accounts {
-        background: rgba(255, 255, 255, 0.1);
-        border-radius: 12px;
-        padding: 20px;
-        margin-top: 20px;
-        backdrop-filter: blur(10px);
-    }
     </style>
     """, unsafe_allow_html=True)
     
@@ -324,7 +234,7 @@ def login_page():
     with st.form("login_form", clear_on_submit=True):
         matricule = st.text_input("**🎓 Numéro Matricule**", 
                                 placeholder="Votre numéro d'identification",
-                                help="Exemple: ADM001, vicem_doyen@un, bouhadjar_kamel1234, 222231005106")
+                                help="Exemple: ADM001, PROF001, ETUD001")
         
         password = st.text_input("**🔑 Mot de Passe**", 
                                type="password",
@@ -358,49 +268,29 @@ def login_page():
             st.info("Tous les champs doivent être remplis")
     
     # Comptes de démonstration
-    with st.expander("### 📋 Comptes de Démonstration (Sélection)", expanded=True):
+    with st.expander("### 📋 Comptes de Démonstration", expanded=True):
         st.markdown("""
         <div class="account-card">
-        <h4>👨‍💼 Administrateur Système</h4>
+        <h4>👨‍💼 Administrateur</h4>
         <p><strong>Matricule:</strong> ADM001</p>
         <p><strong>Mot de passe:</strong> admin123</p>
         <p><em>Accès complet au système</em></p>
         </div>
         
         <div class="account-card">
-        <h4>👨‍🏫 Professeur (GL5)</h4>
-        <p><strong>Matricule:</strong> bouhadjar_kamel1234</p>
+        <h4>👨‍🏫 Professeur</h4>
+        <p><strong>Matricule:</strong> PROF001</p>
         <p><strong>Mot de passe:</strong> prof123</p>
         <p><em>Gestion des examens et étudiants</em></p>
         </div>
         
         <div class="account-card">
-        <h4>👨‍🎓 Étudiant (GL5)</h4>
-        <p><strong>Matricule:</strong> 222231005106</p>
+        <h4>👨‍🎓 Étudiant</h4>
+        <p><strong>Matricule:</strong> ETUD001</p>
         <p><strong>Mot de passe:</strong> etud123</p>
         <p><em>Consultation des examens et résultats</em></p>
         </div>
         """, unsafe_allow_html=True)
-    
-    # Section spéciale pour les comptes de plateforme
-    with st.expander("### 🏢 Comptes d'Accès aux Plateformes (Tableau Complet)", expanded=False):
-        st.markdown('<div class="platform-accounts">', unsafe_allow_html=True)
-        st.markdown("""
-        **Comptes officiels de la plateforme:**
-        
-        | Spécialité | Groupe | Doyen/Vice-Doyen | Gestionnaire Examens | Chef Département | Enseignant | Étudiant |
-        |------------|--------|------------------|----------------------|------------------|------------|----------|
-        | GL | 5 | vicem_doyen@un | planification_fs@un | chef_info@univ-1234 | bouhadjar_kamel1234 | 222231005106 |
-        | GL | 3 | døyen | admin123 | chef_dept_1 | prof1 | etudiant1 |
-        
-        **Mot de passe par défaut:**
-        - **Doyen/Vice-Doyen:** vicem_doyen / døyen123
-        - **Gestionnaire Examens:** admin123
-        - **Chef Département:** chef123
-        - **Enseignant:** prof123
-        - **Étudiant:** etud123
-        """)
-        st.markdown('</div>', unsafe_allow_html=True)
     
     st.markdown('</div>', unsafe_allow_html=True)
     
@@ -470,31 +360,6 @@ def main_app():
         border-radius: 10px;
         overflow: hidden;
         box-shadow: 0 3px 10px rgba(0,0,0,0.05);
-    }
-    
-    .footer-authors {
-        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-        padding: 15px;
-        border-radius: 10px;
-        margin-top: 20px;
-        border-left: 5px solid #667eea;
-    }
-    
-    .author-list {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
-        gap: 10px;
-        margin-top: 10px;
-    }
-    
-    .author-item {
-        background: white;
-        padding: 8px 15px;
-        border-radius: 20px;
-        border: 1px solid #e0e0e0;
-        font-size: 12px;
-        box-shadow: 0 2px 5px rgba(0,0,0,0.05);
     }
     </style>
     """, unsafe_allow_html=True)
@@ -1010,33 +875,11 @@ def main_app():
     st.markdown('</div>', unsafe_allow_html=True)
     
     # ============================================
-    # PIED DE PAGE AVEC AUTEURS
+    # PIED DE PAGE
     # ============================================
     
     st.divider()
     
-    # Section auteurs avec tous les comptes du tableau
-    st.markdown("""
-    <div class="footer-authors">
-    <h4>👥 Auteurs & Comptes d'Accès aux Plateformes</h4>
-    <p><em>Plateforme de planification d'examens - Université Excellence</em></p>
-    
-    <div class="author-list">
-        <div class="author-item">🎓 Doyen/Vice-Doyen: vicem_doyen@un</div>
-        <div class="author-item">📊 Gestionnaire: planification_fs@un</div>
-        <div class="author-item">🏢 Chef Département: chef_info@univ-1234</div>
-        <div class="author-item">👨‍🏫 Enseignant GL5: bouhadjar_kamel1234</div>
-        <div class="author-item">👨‍🎓 Étudiant GL5: 222231005106</div>
-        <div class="author-item">🎓 Doyen: døyen</div>
-        <div class="author-item">📊 Gestionnaire: admin123</div>
-        <div class="author-item">🏢 Chef Département: chef_dept_1</div>
-        <div class="author-item">👨‍🏫 Enseignant: prof1</div>
-        <div class="author-item">👨‍🎓 Étudiant GL3: etudiant1</div>
-    </div>
-    </div>
-    """, unsafe_allow_html=True)
-    
-    # Informations système
     if role == 'admin':
         st.caption(f"""
         ⚠️ **Système Intelligent de Planification des Examens Universitaires - Version Admin 1.0**  
